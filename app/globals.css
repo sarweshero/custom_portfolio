@@ -1,0 +1,506 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Vecna Dark Upside Down Theme */
+:root {
+  --neon-red: #e50914;
+  --vecna-black: #050208;
+  --deep-purple: #1a0510;
+  --rust: #3a0a20;
+  --fog-white: #dadada;
+  --vein-glow: #ff2020;
+  --dark-bark: #0a0305;
+
+  /* Vecna themed overrides */
+  --background: #050208;
+  --foreground: #dadada;
+  --card: #0a0510;
+  --card-foreground: #dadada;
+  --popover: #050208;
+  --popover-foreground: #dadada;
+  --primary: #e50914;
+  --primary-foreground: #dadada;
+  --secondary: #1a0510;
+  --secondary-foreground: #dadada;
+  --muted: #1a0510;
+  --muted-foreground: #666666;
+  --accent: #3a0a20;
+  --accent-foreground: #dadada;
+  --destructive: #5a1020;
+  --destructive-foreground: #dadada;
+  --border: #2a0a15;
+  --input: #0a0510;
+  --ring: #e50914;
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.5rem;
+  --sidebar: #050208;
+  --sidebar-foreground: #dadada;
+  --sidebar-primary: #e50914;
+  --sidebar-primary-foreground: #dadada;
+  --sidebar-accent: #1a0510;
+  --sidebar-accent-foreground: #dadada;
+  --sidebar-border: #2a0a15;
+  --sidebar-ring: #e50914;
+}
+
+.dark {
+  --background: #050208;
+  --foreground: #dadada;
+  --card: #0a0510;
+  --card-foreground: #dadada;
+  --popover: #050208;
+  --popover-foreground: #dadada;
+  --primary: #e50914;
+  --primary-foreground: #dadada;
+  --secondary: #1a0510;
+  --secondary-foreground: #dadada;
+  --muted: #1a0510;
+  --muted-foreground: #666666;
+  --accent: #3a0a20;
+  --accent-foreground: #dadada;
+  --destructive: #5a1020;
+  --destructive-foreground: #dadada;
+  --border: #2a0a15;
+  --input: #0a0510;
+  --ring: #e50914;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: #050208;
+  --sidebar-foreground: #dadada;
+  --sidebar-primary: #e50914;
+  --sidebar-primary-foreground: #dadada;
+  --sidebar-accent: #1a0510;
+  --sidebar-accent-foreground: #dadada;
+  --sidebar-border: #2a0a15;
+  --sidebar-ring: #e50914;
+}
+
+@theme inline {
+  --font-sans: "Geist", "Geist Fallback", sans-serif;
+  --font-mono: "Geist Mono", "Geist Mono Fallback", monospace;
+  --font-display: "Playfair Display", serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-neon-red: var(--neon-red);
+  --color-vecna-black: var(--vecna-black);
+  --color-deep-purple: var(--deep-purple);
+  --color-rust: var(--rust);
+  --color-fog-white: var(--fog-white);
+  --color-vein-glow: var(--vein-glow);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background: radial-gradient(ellipse at center, #0a0510 0%, #050208 50%, #020103 100%);
+  }
+}
+
+/* Vecna Root Animations */
+@keyframes vein-pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: drop-shadow(0 0 5px rgba(229, 9, 20, 0.5));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 15px rgba(229, 9, 20, 0.9)) drop-shadow(0 0 30px rgba(229, 9, 20, 0.5));
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  15% {
+    transform: scale(1.03);
+    filter: brightness(1.3);
+  }
+  30% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  45% {
+    transform: scale(1.02);
+    filter: brightness(1.2);
+  }
+}
+
+@keyframes root-crawl {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes spore-float {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) translateX(20px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes flicker-intense {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0.3;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  15% {
+    opacity: 0.5;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.7;
+  }
+  30% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.95;
+  }
+  55% {
+    opacity: 0.4;
+  }
+  60% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.85;
+  }
+  80% {
+    opacity: 0.2;
+  }
+  85% {
+    opacity: 1;
+  }
+}
+
+@keyframes emerge-from-vines {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    filter: blur(10px) brightness(0.5);
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  50% {
+    filter: blur(2px) brightness(0.8);
+    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0) brightness(1);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes tear-through {
+  0% {
+    clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+    opacity: 0;
+  }
+  30% {
+    clip-path: polygon(30% 30%, 70% 30%, 70% 70%, 30% 70%);
+    opacity: 0.5;
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.animate-vein-pulse {
+  animation: vein-pulse 2s ease-in-out infinite;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.animate-flicker-intense {
+  animation: flicker-intense 4s infinite;
+}
+
+.animate-emerge {
+  animation: emerge-from-vines 1s ease-out forwards;
+}
+
+.animate-tear {
+  animation: tear-through 0.5s ease-out forwards;
+}
+
+/* Vecna Button Styles */
+.vecna-button {
+  position: relative;
+  background: linear-gradient(135deg, #1a0510 0%, #0a0305 100%);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.vecna-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(229, 9, 20, 0.1) 25%,
+    rgba(229, 9, 20, 0.2) 50%,
+    rgba(229, 9, 20, 0.1) 75%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.vecna-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.4) 0%, transparent 70%);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.5s ease;
+}
+
+.vecna-button:hover {
+  border-color: rgba(229, 9, 20, 0.8);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.4), 0 0 40px rgba(229, 9, 20, 0.2), inset 0 0 20px rgba(229, 9, 20, 0.1);
+}
+
+.vecna-button:hover::before {
+  opacity: 1;
+  animation: vein-pulse 1s ease-in-out infinite;
+}
+
+.vecna-button:hover::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* Vecna Card Styles */
+.vecna-card {
+  background: linear-gradient(180deg, rgba(10, 5, 16, 0.9) 0%, rgba(5, 2, 8, 0.95) 100%);
+  border: 1px solid rgba(229, 9, 20, 0.15);
+  backdrop-filter: blur(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+.vecna-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(229, 9, 20, 0.5), transparent);
+}
+
+.vecna-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at top, rgba(229, 9, 20, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Vecna Modal */
+.vecna-modal {
+  animation: tear-through 0.4s ease-out forwards;
+  background: radial-gradient(ellipse at center, #0a0510 0%, #050208 100%);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  box-shadow: 0 0 60px rgba(229, 9, 20, 0.3), 0 0 120px rgba(229, 9, 20, 0.1), inset 0 0 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Section Emerge Animation */
+.section-emerge {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.section-emerge.visible {
+  animation: emerge-from-vines 0.8s ease-out forwards;
+}
+
+/* VHS/CRT Effects - Enhanced */
+.scanline-overlay {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.scanline-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(229, 9, 20, 0.02) 50%, transparent 100%);
+  animation: scanline 8s linear infinite;
+}
+
+/* Neon Text Effects - Vecna Style */
+.neon-text {
+  text-shadow: 0 0 5px var(--neon-red), 0 0 10px var(--neon-red), 0 0 20px var(--neon-red), 0 0 40px var(--neon-red), 0
+    0 80px rgba(229, 9, 20, 0.5);
+}
+
+.neon-text-subtle {
+  text-shadow: 0 0 5px rgba(229, 9, 20, 0.5), 0 0 10px rgba(229, 9, 20, 0.3);
+}
+
+/* Vein Glow Border */
+.vein-border {
+  position: relative;
+}
+
+.vein-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, transparent 30%, rgba(229, 9, 20, 0.5) 50%, transparent 70%);
+  background-size: 200% 200%;
+  animation: vein-pulse 3s ease-in-out infinite;
+  border-radius: inherit;
+  z-index: -1;
+  filter: blur(4px);
+}
+
+/* Scrollbar - Vecna Style */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050208;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #3a0a20, #e50914, #3a0a20);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e50914;
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+}
+
+/* Selection */
+::selection {
+  background: rgba(229, 9, 20, 0.7);
+  color: var(--fog-white);
+  text-shadow: 0 0 10px rgba(229, 9, 20, 0.8);
+}
+
+/* Focus States - Vecna */
+*:focus-visible {
+  outline: 2px solid rgba(229, 9, 20, 0.5);
+  outline-offset: 2px;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
+}
+
+/* Input Fields - Vecna */
+input,
+textarea {
+  background: rgba(10, 5, 16, 0.8) !important;
+  border-color: rgba(229, 9, 20, 0.2) !important;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: rgba(229, 9, 20, 0.6) !important;
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.2), inset 0 0 20px rgba(229, 9, 20, 0.05);
+}
