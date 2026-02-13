@@ -1,3 +1,21 @@
+/* Sticky section for mobile view */
+.sticky-mobile-section {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: 1000;
+}
+
+@media (min-width: 768px) {
+  .sticky-mobile-section {
+    position: static;
+    transform: none;
+    width: auto;
+    z-index: auto;
+  }
+}
 @import "tailwindcss";
 @import "tw-animate-css";
 
