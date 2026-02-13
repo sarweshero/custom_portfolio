@@ -56,6 +56,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+    <head>
+      <link
+        rel="icon"
+        href="/me.png"
+        type="image/png"
+      />
+    </head>
       <body
         className={`${playfair.variable} ${baskerville.variable} ${jetbrainsMono.variable} antialiased`}
       >
