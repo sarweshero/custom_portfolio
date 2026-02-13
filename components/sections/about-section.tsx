@@ -80,6 +80,12 @@ export default function AboutSection() {
                     fill
                     className="object-cover object-top"
                     sizes="(max-width: 640px) 128px, 144px"
+                    style={{
+                        fontFamily: "var(--font-serif)",
+                        filter: "grayscale(1) contrast(0.9) brightness(0.95)",
+                        background: "var(--surface)",
+                        mixBlendMode: "multiply",
+                        }}
                     priority
                   />
                 </div>
