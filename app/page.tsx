@@ -1,8 +1,5 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
-import dynamic from "next/dynamic"
-import { AnimatePresence, motion } from "framer-motion"
 import HeroSection from "@/components/sections/hero-section"
 import AboutSection from "@/components/sections/about-section"
 import ProjectsSection from "@/components/sections/projects-section"
@@ -10,84 +7,140 @@ import ExperienceSection from "@/components/sections/experience-section"
 import EducationSection from "@/components/sections/education-section"
 import ContactSection from "@/components/sections/contact-section"
 import Navigation from "@/components/navigation"
-import LoadingScreen from "@/components/loading-screen"
-import { ReducedMotionProvider } from "@/components/providers/reduced-motion-provider"
-import VineOverlay from "@/components/effects/vine-overlay"
-import FogOverlay from "@/components/effects/fog-overlay"
-import VecnaCursor from "@/components/effects/vecna-cursor"
-
-const PortalCanvas = dynamic(() => import("@/components/canvas/portal-canvas"), {
-  ssr: false,
-  loading: () => <div className="fixed inset-0 bg-[#0A0A0A]" />,
-})
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight
-      const progress = scrollTop / docHeight
-      setScrollProgress(progress)
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  const currentDate = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
 
   return (
-    <ReducedMotionProvider>
-      <VecnaCursor />
+    <div className="min-h-screen">
+      {/* ═══ MASTHEAD ═══ */}
+      <header className="newspaper-container pt-8 pb-2 text-center" id="hero">
+        {/* Top rule */}
+        <hr className="divider-thick mb-4" />
 
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <LoadingScreen key="loading" />
-        ) : (
-          <motion.main
-            key="main"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-            ref={containerRef}
-            className="relative min-h-screen"
-          >
-            {/* 3D Canvas Background */}
-            <PortalCanvas scrollProgress={scrollProgress} />
+        {/* Edition line */}
+        <div className="flex items-center justify-between mb-3">
+          <span className="meta-text">{currentDate}</span>
+          <span className="meta-text">Digital Edition</span>
+          <span className="meta-text">Vol. I · No. 1</span>
+        </div>
 
-            {/* Atmospheric Effects */}
-            <FogOverlay intensity={scrollProgress} />
-            <VineOverlay scrollProgress={scrollProgress} />
+        <hr className="divider-single mb-6" />
 
-            {/* Navigation */}
-            <Navigation />
+        {/* Masthead title */}
+        <h1
+          className="headline-1 mb-2"
+          style={{ fontFamily: "var(--font-serif)" }}
+        >
+          The Sarweshero Chronicle
+        </h1>
 
-            {/* Main Content Sections */}
-            <div className="relative z-10">
-              <HeroSection />
-              <AboutSection />
-              <ProjectsSection />
-              <ExperienceSection />
-              <EducationSection />
-              <ContactSection />
-            </div>
+        <p
+          className="text-[var(--ink-muted)] text-sm tracking-[0.25em] uppercase mb-1"
+          style={{ fontFamily: "var(--font-serif)", fontVariant: "small-caps" }}
+        >
+          Full Stack Development · Artificial Intelligence · Machine Learning
+        </p>
 
-            {/* Footer */}
-            <footer className="relative z-10 py-8 text-center border-t border-[#2A0A10]">
-              <p className="text-[#888888] font-mono text-sm">
-                © 2025 Sarweshero. Built with passion from the Upside Down.
+        <hr className="divider-double mt-6 mb-1" />
+        <hr className="divider-single mt-1" />
+      </header>
+
+      {/* ═══ NAVIGATION ═══ */}
+      <Navigation />
+
+      {/* ═══ MAIN CONTENT ═══ */}
+      <main>
+        <HeroSection />
+
+        <div className="newspaper-container">
+          <hr className="divider-double my-12" />
+        </div>
+
+        <AboutSection />
+
+        <div className="newspaper-container">
+          <hr className="divider-ornamental" />
+        </div>
+
+        <ProjectsSection />
+
+        <div className="newspaper-container">
+          <hr className="divider-double my-12" />
+        </div>
+
+        <ExperienceSection />
+
+        <div className="newspaper-container">
+          <hr className="divider-ornamental" />
+        </div>
+
+        <EducationSection />
+
+        <div className="newspaper-container">
+          <hr className="divider-double my-12" />
+        </div>
+
+        <ContactSection />
+      </main>
+
+      {/* ═══ FOOTER ═══ */}
+      <footer className="border-t-2 border-[var(--ink)] mt-16">
+        <div className="newspaper-container py-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-[var(--ink-muted)]">
+            <div>
+              <h4 className="headline-4 text-[var(--ink)] mb-2">The Chronicle</h4>
+              <p style={{ fontFamily: "var(--font-body)" }}>
+                A digital newspaper portfolio by Sarweshwar, showcasing work
+                in full stack development, AI, and machine learning.
               </p>
-            </footer>
-          </motion.main>
-        )}
-      </AnimatePresence>
-    </ReducedMotionProvider>
+            </div>
+            <div className="text-center">
+              <p className="meta-text mb-2">Published from</p>
+              <p style={{ fontFamily: "var(--font-body)" }}>
+                Karpagam Academy of Higher Education
+              </p>
+              <p style={{ fontFamily: "var(--font-body)" }}>
+                Coimbatore, Tamil Nadu, India
+              </p>
+            </div>
+            <div className="text-right">
+              <p className="meta-text mb-2">Connect</p>
+              <div className="space-y-1" style={{ fontFamily: "var(--font-body)" }}>
+                <p>
+                  <a href="mailto:sarweshero@gmail.com" className="hover:text-[var(--ink)] underline transition-colors">
+                    sarweshero@gmail.com
+                  </a>
+                </p>
+                <p>
+                  <a href="https://github.com/sarweshero" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--ink)] underline transition-colors">
+                    GitHub
+                  </a>
+                  {" · "}
+                  <a href="https://www.linkedin.com/in/sarweshero" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--ink)] underline transition-colors">
+                    LinkedIn
+                  </a>
+                  {" · "}
+                  <a href="https://x.com/sarweshero" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--ink)] underline transition-colors">
+                    X/Twitter
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <hr className="divider-single my-6" />
+
+          <p className="text-center text-xs text-[var(--ink-faded)]" style={{ fontFamily: "var(--font-mono)" }}>
+            © {new Date().getFullYear()} Sarweshwar. All rights reserved. Designed as a digital newspaper experience.
+          </p>
+        </div>
+      </footer>
+    </div>
   )
 }
