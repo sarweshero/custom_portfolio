@@ -77,7 +77,7 @@ export default function Navigation() {
       {/* Top thin rule */}
       <div className="h-px bg-[var(--rule)]" aria-hidden="true" />
 
-      <div className="newspaper-container">
+      <div>
         {/* Desktop Navigation Row */}
         <div className="hidden md:flex items-center justify-center gap-10 py-3">
           {navItems.map((item, i) => {
@@ -106,7 +106,7 @@ export default function Navigation() {
         </div>
 
         {/* Mobile Navigation Header */}
-        <div className="flex md:hidden items-center justify-between py-3">
+        <div className="flex md:hidden items-center justify-between py-3 px-4 w-full">
           <span
             className="text-sm font-bold tracking-widest uppercase text-[var(--ink)]"
             style={{ fontFamily: "var(--font-serif)" }}
@@ -116,6 +116,7 @@ export default function Navigation() {
           <button
             ref={toggleRef}
             onClick={() => setIsOpen(!isOpen)}
+            onTouchEnd={() => setIsOpen((prev) => !prev)}
             className="flex items-center justify-center text-[var(--ink)]"
             style={{ minWidth: "48px", minHeight: "48px" }}
             aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -150,13 +151,13 @@ export default function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 300 }}
-              className="fixed top-0 right-0 bottom-0 w-[min(80vw,320px)] bg-[var(--paper)] z-50 md:hidden flex flex-col shadow-[-4px_0_20px_rgba(0,0,0,0.08)]"
+              className="fixed top-0 left-0 right-0 bottom-0 w-full max-w-full min-h-screen h-full bg-[var(--paper)] z-50 md:hidden flex flex-col shadow-[-4px_0_20px_rgba(0,0,0,0.08)]"
               role="dialog"
               aria-modal="true"
               aria-label="Navigation menu"
             >
               {/* Menu header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--rule)]">
+              <div className="flex items-center justify-between px-4 py-4 border-b border-[var(--rule)] w-full">
                 <span
                   className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--ink-muted)]"
                   style={{ fontFamily: "var(--font-serif)" }}

@@ -13,22 +13,44 @@ import Navigation from "../components/navigation"
 import { useEditorialUX } from "../components/editorial-ux"
 
 export default function Home() {
+
   const { activeSection, sectionIndex, totalSections, greeting } = useEditorialUX()
   const [loaded, setLoaded] = useState(false)
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [dateString, setDateString] = useState<string>(
+    new Date().toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  )
 
-  const currentDate = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  })
-
-  const shortDate = new Date().toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  })
+  useEffect(() => {
+    const updateDate = () => {
+      if (window.innerWidth < 640) {
+        setDateString(
+          new Date().toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })
+        )
+      } else {
+        setDateString(
+          new Date().toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })
+        )
+      }
+    }
+    updateDate()
+    window.addEventListener("resize", updateDate)
+    return () => window.removeEventListener("resize", updateDate)
+  }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 100)
@@ -71,7 +93,7 @@ export default function Home() {
           style={{ transitionDelay: "200ms" }}
         >
           <span className="editorial-greeting hidden sm:inline">{greeting}</span>
-          <span className="meta-text">{typeof window !== "undefined" && window.innerWidth < 640 ? shortDate : currentDate}</span>
+          <span className="meta-text">{dateString}</span>
           <span className="meta-text hidden sm:inline">Vol. I · No. 1</span>
         </div>
 
@@ -116,13 +138,15 @@ export default function Home() {
         className={`transition-opacity duration-700 ${loaded ? "opacity-100" : "opacity-0"}`}
         style={{ transitionDelay: "1100ms" }}
       >
-        <HeroSection />
+        <div id="hero">
+          <HeroSection />
+        </div>
 
         <div className="newspaper-container">
           <hr className="divider-double my-8 md:my-12 animate-divider-expand" />
         </div>
 
-        <div className="section-block">
+        <div id="about" className="section-block">
           <AboutSection />
         </div>
 
@@ -130,13 +154,15 @@ export default function Home() {
           <hr className="divider-ornamental" />
         </div>
 
-        <ProjectsSection />
+        <div id="projects">
+          <ProjectsSection />
+        </div>
 
         <div className="newspaper-container">
           <hr className="divider-double my-8 md:my-12 animate-divider-expand" />
         </div>
 
-        <div className="section-block">
+        <div id="experience" className="section-block">
           <ExperienceSection />
         </div>
 
@@ -144,13 +170,15 @@ export default function Home() {
           <hr className="divider-ornamental" />
         </div>
 
-        <EducationSection />
+        <div id="education">
+          <EducationSection />
+        </div>
 
         <div className="newspaper-container">
           <hr className="divider-double my-8 md:my-12 animate-divider-expand" />
         </div>
 
-        <div className="section-block">
+        <div id="contact" className="section-block">
           <ContactSection />
         </div>
       </main>
