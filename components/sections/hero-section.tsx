@@ -7,7 +7,6 @@ import { Github, Linkedin, Mail } from "lucide-react"
 export default function HeroSection() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-50px" })
-    const isMobile = useIsMobile();
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/sarweshero", label: "GitHub" },
@@ -15,11 +14,8 @@ export default function HeroSection() {
     { icon: Mail, href: "mailto:sarweshero@gmail.com", label: "Email" },
   ]
 
-    return (
-      <section
-        ref={ref}
-        className={`newspaper-container py-8 md:py-12 ${isMobile ? 'sticky-mobile-section' : ''}`}
-      >
+  return (
+    <section ref={ref} className="newspaper-container py-8 md:py-12">
       {/* Featured headline layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 column-rule">
         {/* Main Feature — Left Column */}
