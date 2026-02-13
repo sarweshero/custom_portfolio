@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Menu, X } from "lucide-react"
+import { useEditorialUX } from "./editorial-ux"
 
 const navItems = [
   { name: "Home", href: "#hero" },
@@ -15,6 +16,7 @@ const navItems = [
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const { activeSection } = useEditorialUX()
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 100)
@@ -44,32 +46,41 @@ export default function Navigation() {
       <div className="newspaper-container">
         {/* Desktop Navigation Row */}
         <div className="hidden md:flex items-center justify-center gap-10 py-3">
-          {navItems.map((item, i) => (
-            <span key={item.name} className="flex items-center gap-10">
-              <a
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault()
-                  scrollToSection(item.href)
-                }}
-                className="nav-link-style"
-              >
-                {item.name}
-              </a>
-              {i < navItems.length - 1 && (
-                <span className="text-[var(--rule)] text-xs select-none">·</span>
-              )}
-            </span>
-          ))}
+          {navItems.map((item, i) => {
+            const isActive = activeSection === item.name
+            return (
+              <span key={item.name} className="flex items-center gap-10">
+                <a
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollToSection(item.href)
+                  }}
+                  className={`nav-link-style transition-all duration-300 ${
+                    isActive
+                      ? "!color-[var(--accent-burgundy)] !text-[var(--accent-burgundy)]"
+                      : ""
+                  }`}
+                  style={isActive ? { color: "var(--accent-burgundy)" } : undefined}
+                  aria-current={isActive ? "true" : undefined}
+                >
+                  {item.name}
+                </a>
+                {i < navItems.length - 1 && (
+                  <span className="text-[var(--rule)] text-xs select-none">·</span>
+                )}
+              </span>
+            )
+          })}
         </div>
 
         {/* Mobile Navigation */}
         <div className="flex md:hidden items-center justify-between py-3">
           <span
-            className="font-[var(--font-serif)] text-sm font-bold tracking-widest uppercase text-[var(--ink)]"
+            className="text-sm font-bold tracking-widest uppercase text-[var(--ink)]"
             style={{ fontFamily: "var(--font-serif)" }}
           >
-            Chronicle
+            {isScrolled ? activeSection : "Chronicle"}
           </span>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -86,19 +97,23 @@ export default function Navigation() {
       {isOpen && (
         <div className="md:hidden border-t border-[var(--rule)] bg-[var(--paper)]">
           <div className="newspaper-container py-4 flex flex-col gap-3">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault()
-                  scrollToSection(item.href)
-                }}
-                className="nav-link-style py-1"
-              >
-                {item.name}
-              </a>
-            ))}
+            {navItems.map((item) => {
+              const isActive = activeSection === item.name
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    scrollToSection(item.href)
+                  }}
+                  className="nav-link-style py-1"
+                  style={isActive ? { color: "var(--accent-burgundy)" } : undefined}
+                >
+                  {isActive ? "▸ " : ""}{item.name}
+                </a>
+              )
+            })}
           </div>
         </div>
       )}

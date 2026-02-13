@@ -1,14 +1,19 @@
 "use client"
 
-import HeroSection from "@/components/sections/hero-section"
-import AboutSection from "@/components/sections/about-section"
-import ProjectsSection from "@/components/sections/projects-section"
-import ExperienceSection from "@/components/sections/experience-section"
-import EducationSection from "@/components/sections/education-section"
-import ContactSection from "@/components/sections/contact-section"
-import Navigation from "@/components/navigation"
+import { useState, useEffect } from "react"
+import HeroSection from "../components/sections/hero-section"
+import AboutSection from "../components/sections/about-section"
+import ProjectsSection from "../components/sections/projects-section"
+import ExperienceSection from "../components/sections/experience-section"
+import EducationSection from "../components/sections/education-section"
+import ContactSection from "../components/sections/contact-section"
+import Navigation from "../components/navigation"
+import { useEditorialUX } from "../components/editorial-ux"
 
 export default function Home() {
+  const { activeSection, sectionIndex, totalSections, greeting } = useEditorialUX()
+  const [loaded, setLoaded] = useState(false)
+
   const currentDate = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
@@ -16,53 +21,84 @@ export default function Home() {
     day: "numeric",
   })
 
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 100)
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
     <div className="min-h-screen">
-      {/* ═══ MASTHEAD ═══ */}
-      <header className="newspaper-container pt-8 pb-2 text-center" id="hero">
-        {/* Top rule */}
-        <hr className="divider-thick mb-4" />
+      {/* ═══ MASTHEAD — Paper Unfold Reveal ═══ */}
+      <header
+        className={`newspaper-container pt-8 pb-2 text-center masthead-depth transition-all duration-1000 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+        id="hero"
+      >
+        {/* Top rule — animated expand */}
+        <hr className={`divider-thick mb-4 ${loaded ? "animate-divider-expand delay-100" : "opacity-0"}`} />
 
         {/* Edition line */}
-        <div className="flex items-center justify-between mb-3">
+        <div
+          className={`flex items-center justify-between mb-3 transition-all duration-700 ${
+            loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+          }`}
+          style={{ transitionDelay: "200ms" }}
+        >
+          <span className="editorial-greeting">{greeting}</span>
           <span className="meta-text">{currentDate}</span>
-          <span className="meta-text">Digital Edition</span>
           <span className="meta-text">Vol. I · No. 1</span>
         </div>
 
-        <hr className="divider-single mb-6" />
+        <hr className={`divider-single mb-6 ${loaded ? "animate-divider-expand delay-300" : "opacity-0"}`} />
 
-        {/* Masthead title */}
+        {/* Masthead title — dramatic letter-spacing reveal */}
         <h1
-          className="headline-1 mb-2"
-          style={{ fontFamily: "var(--font-serif)" }}
+          className={`headline-1 mb-2 ${loaded ? "animate-masthead-reveal" : "opacity-0"}`}
+          style={{ fontFamily: "var(--font-serif)", animationDelay: "0.4s" }}
         >
           The Sarweshero Chronicle
         </h1>
 
         <p
-          className="text-[var(--ink-muted)] text-sm tracking-[0.25em] uppercase mb-1"
-          style={{ fontFamily: "var(--font-serif)", fontVariant: "small-caps" }}
+          className={`text-[var(--ink-muted)] text-sm tracking-[0.25em] uppercase mb-1 transition-all duration-700 ${
+            loaded ? "opacity-100" : "opacity-0"
+          }`}
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontVariant: "small-caps",
+            transitionDelay: "800ms",
+          }}
         >
           Full Stack Development · Artificial Intelligence · Machine Learning
         </p>
 
-        <hr className="divider-double mt-6 mb-1" />
-        <hr className="divider-single mt-1" />
+        <hr className={`divider-double mt-6 mb-1 ${loaded ? "animate-divider-expand delay-900" : "opacity-0"}`} />
+        <hr className={`divider-single mt-1 ${loaded ? "animate-divider-expand delay-1000" : "opacity-0"}`} />
       </header>
 
       {/* ═══ NAVIGATION ═══ */}
-      <Navigation />
+      <div
+        className={`transition-all duration-700 ${loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+        style={{ transitionDelay: "1000ms" }}
+      >
+        <Navigation />
+      </div>
 
       {/* ═══ MAIN CONTENT ═══ */}
-      <main>
+      <main
+        className={`transition-opacity duration-700 ${loaded ? "opacity-100" : "opacity-0"}`}
+        style={{ transitionDelay: "1100ms" }}
+      >
         <HeroSection />
 
         <div className="newspaper-container">
-          <hr className="divider-double my-12" />
+          <hr className="divider-double my-12 animate-divider-expand" />
         </div>
 
-        <AboutSection />
+        <div className="section-block">
+          <AboutSection />
+        </div>
 
         <div className="newspaper-container">
           <hr className="divider-ornamental" />
@@ -71,10 +107,12 @@ export default function Home() {
         <ProjectsSection />
 
         <div className="newspaper-container">
-          <hr className="divider-double my-12" />
+          <hr className="divider-double my-12 animate-divider-expand" />
         </div>
 
-        <ExperienceSection />
+        <div className="section-block">
+          <ExperienceSection />
+        </div>
 
         <div className="newspaper-container">
           <hr className="divider-ornamental" />
@@ -83,11 +121,35 @@ export default function Home() {
         <EducationSection />
 
         <div className="newspaper-container">
-          <hr className="divider-double my-12" />
+          <hr className="divider-double my-12 animate-divider-expand" />
         </div>
 
-        <ContactSection />
+        <div className="section-block">
+          <ContactSection />
+        </div>
       </main>
+
+      {/* ═══ FLOATING MICRO DETAILS ═══ */}
+      <div className="fixed bottom-6 left-6 z-40 hidden lg:block">
+        <div className="now-reading">Now Reading</div>
+        <div
+          className="text-xs mt-0.5"
+          style={{
+            fontFamily: "var(--font-serif)",
+            color: "var(--ink-muted)",
+            fontStyle: "italic",
+            fontSize: "0.65rem",
+          }}
+        >
+          {activeSection}
+        </div>
+      </div>
+
+      <div className="fixed bottom-6 right-6 z-40 hidden lg:block">
+        <span className="page-number">
+          {String(sectionIndex + 1).padStart(2, "0")} / {String(totalSections).padStart(2, "0")}
+        </span>
+      </div>
 
       {/* ═══ FOOTER ═══ */}
       <footer className="border-t-2 border-[var(--ink)] mt-16">

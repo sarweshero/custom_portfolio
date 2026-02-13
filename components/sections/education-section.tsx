@@ -67,11 +67,11 @@ export default function EducationSection() {
         className="text-center mb-10"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <span className="section-label">Academia</span>
         <h2 className="headline-2 mt-4">Education & Learning</h2>
-        <hr className="divider-single mt-4 max-w-xs mx-auto" />
+        <hr className="divider-single mt-4 max-w-xs mx-auto animate-divider-expand" />
       </motion.div>
 
       {/* Education Cards — Accordion */}
@@ -82,16 +82,16 @@ export default function EducationSection() {
             className="border-t border-[var(--rule)] last:border-b"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            transition={{ duration: 0.5, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Header — Always visible */}
             <button
-              className="w-full py-5 flex items-start gap-4 text-left hover:bg-[var(--paper-aged)]/50 transition-colors px-2"
+              className="w-full py-5 flex items-start gap-4 text-left hover:bg-[var(--paper-aged)]/50 transition-all duration-300 px-2 group"
               onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
               aria-expanded={expandedIndex === i}
             >
               <div className="flex-1 min-w-0">
-                <h3 className="headline-4">{edu.school}</h3>
+                <h3 className="headline-4 group-hover:text-[var(--accent-burgundy)] transition-colors duration-300">{edu.school}</h3>
                 <p
                   className="text-sm text-[var(--ink-muted)] mt-0.5"
                   style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
@@ -118,7 +118,7 @@ export default function EducationSection() {
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   className="overflow-hidden"
                 >
                   <div className="px-2 pb-6">

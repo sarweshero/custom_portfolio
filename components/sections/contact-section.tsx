@@ -3,7 +3,7 @@
 import type React from "react"
 import { useRef, useState } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
-import { Send, Mail, Github, Linkedin, Twitter, CheckCircle, AlertCircle } from "lucide-react"
+import { Mail, Github, Linkedin, Twitter, CheckCircle } from "lucide-react"
 
 const socialLinks = [
   { name: "Phone", icon: Mail, href: "tel:+916383073831", value: "+91 6383073831" },
@@ -23,17 +23,36 @@ export default function ContactSection() {
     subject: "",
     message: "",
   })
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle")
+  const [status, setStatus] = useState<"idle" | "sending" | "success">("idle")
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setStatus("sending")
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-    setStatus("success")
-    setTimeout(() => {
+
+    try {
+      const formDataToSend = new FormData()
+      formDataToSend.append("name", formData.name)
+      formDataToSend.append("email", formData.email)
+      formDataToSend.append("subject", formData.subject)
+      formDataToSend.append("message", formData.message)
+      formDataToSend.append("_subject", "New Portfolio Contact Message")
+      formDataToSend.append("_captcha", "false")
+
+      const response = await fetch("https://formsubmit.co/sarweshero@gmail.com", {
+        method: "POST",
+        body: formDataToSend,
+      })
+
+      if (response.ok) {
+        setStatus("success")
+        setFormData({ name: "", email: "", subject: "", message: "" })
+        setTimeout(() => setStatus("idle"), 3000)
+      } else {
+        setStatus("idle")
+      }
+    } catch (error) {
       setStatus("idle")
-      setFormData({ name: "", email: "", subject: "", message: "" })
-    }, 3000)
+    }
   }
 
   return (
@@ -76,6 +95,7 @@ export default function ContactSection() {
                 <input
                   id="contact-name"
                   type="text"
+                  name="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full border border-[var(--rule)] px-4 py-2.5 text-sm focus:border-[var(--ink)] outline-none transition-colors"
@@ -92,6 +112,7 @@ export default function ContactSection() {
                 <input
                   id="contact-email"
                   type="email"
+                  name="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full border border-[var(--rule)] px-4 py-2.5 text-sm focus:border-[var(--ink)] outline-none transition-colors"
@@ -108,6 +129,7 @@ export default function ContactSection() {
                 <input
                   id="contact-subject"
                   type="text"
+                  name="subject"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   className="w-full border border-[var(--rule)] px-4 py-2.5 text-sm focus:border-[var(--ink)] outline-none transition-colors"
@@ -123,6 +145,7 @@ export default function ContactSection() {
                 </label>
                 <textarea
                   id="contact-message"
+                  name="message"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={5}
@@ -135,27 +158,15 @@ export default function ContactSection() {
               {/* Submit */}
               <button
                 type="submit"
-                disabled={status === "sending" || status === "success"}
-                className="inline-flex items-center gap-2 px-6 py-2.5 bg-[var(--ink)] text-[var(--paper)] text-sm tracking-wider uppercase transition-all hover:bg-[var(--ink-light)] disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ fontFamily: "var(--font-serif)" }}
+                disabled={status === "sending"}
+                className="cta-button flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {status === "idle" && (
-                  <>
-                    <Send size={14} />
-                    Send Message
-                  </>
-                )}
+                {status === "idle" && "Send Message"}
                 {status === "sending" && "Sending..."}
                 {status === "success" && (
                   <>
                     <CheckCircle size={14} />
                     Message Sent
-                  </>
-                )}
-                {status === "error" && (
-                  <>
-                    <AlertCircle size={14} />
-                    Failed — Try Again
                   </>
                 )}
               </button>

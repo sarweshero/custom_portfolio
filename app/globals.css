@@ -99,6 +99,39 @@
     /* Subtle paper texture */
     background-image:
       url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    position: relative;
+  }
+
+  /* Framing vertical rule lines */
+  @media (min-width: 1536px) {
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(17, 17, 17, 0.08);
+      z-index: 1;
+      pointer-events: none;
+    }
+    body::before { left: 3rem; }
+    body::after { right: 3rem; }
+  }
+
+  /* Scroll progress indicator */
+  html::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--ink);
+    z-index: 1000;
+    transform: scaleX(var(--scroll-progress, 0));
+    transform-origin: left;
+    transition: transform 0.1s ease-out;
   }
 }
 
@@ -199,6 +232,16 @@
 
 .nav-link-style:hover::after {
   transform: scaleX(1);
+}
+
+/* Active nav link state */
+.nav-link-active {
+  color: var(--accent-burgundy) !important;
+}
+
+.nav-link-active::after {
+  transform: scaleX(1) !important;
+  background: var(--accent-burgundy) !important;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -379,7 +422,41 @@ textarea::placeholder {
 }
 
 /* ══════════════════════════════════════════════════════════
-   ANIMATIONS — Subtle & Editorial
+   SECTION LABELS & MARGIN ENHANCEMENTS
+   ══════════════════════════════════════════════════════════ */
+
+/* Vertical section labels in margins (desktop only) */
+@media (min-width: 1536px) {
+  .section-label-vertical {
+    position: fixed;
+    font-family: var(--font-serif);
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    opacity: 0.5;
+    z-index: 10;
+    pointer-events: none;
+    white-space: nowrap;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .section-label-left {
+    left: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  .section-label-right {
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ANIMATIONS — Premium Editorial Motion System
    ══════════════════════════════════════════════════════════ */
 
 @keyframes fade-in-up {
@@ -411,6 +488,86 @@ textarea::placeholder {
   }
 }
 
+/* Divider expands outward from center */
+@keyframes divider-expand {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Headline subtle scale on entrance */
+@keyframes headline-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+    letter-spacing: 0.04em;
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Drop cap fade in + slight scale */
+@keyframes drop-cap-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Page unfold — masthead entrance */
+@keyframes page-unfold {
+  from {
+    opacity: 0;
+    transform: perspective(800px) rotateX(-2deg);
+    transform-origin: top center;
+  }
+  to {
+    opacity: 1;
+    transform: perspective(800px) rotateX(0deg);
+    transform-origin: top center;
+  }
+}
+
+/* Masthead letter spacing reveal */
+@keyframes masthead-reveal {
+  0% {
+    opacity: 0;
+    letter-spacing: 0.15em;
+  }
+  60% {
+    opacity: 1;
+    letter-spacing: -0.01em;
+  }
+  100% {
+    opacity: 1;
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Section slide in from below */
+@keyframes section-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ornament fade */
+@keyframes ornament-appear {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out both;
 }
@@ -423,12 +580,243 @@ textarea::placeholder {
   animation: unfold 0.8s ease-out both;
 }
 
+.animate-page-unfold {
+  animation: page-unfold 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-masthead-reveal {
+  animation: masthead-reveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-section-in {
+  animation: section-slide-in 0.7s ease-out both;
+}
+
+.animate-divider-expand {
+  animation: divider-expand 0.8s ease-out both;
+  transform-origin: center;
+}
+
+.animate-drop-cap::first-letter {
+  animation: drop-cap-appear 0.6s ease-out both;
+  animation-delay: 0.3s;
+}
+
 /* Stagger delays */
 .delay-100 { animation-delay: 0.1s; }
 .delay-200 { animation-delay: 0.2s; }
 .delay-300 { animation-delay: 0.3s; }
 .delay-400 { animation-delay: 0.4s; }
 .delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+.delay-900 { animation-delay: 0.9s; }
+.delay-1000 { animation-delay: 1.0s; }
+.delay-1200 { animation-delay: 1.2s; }
+.delay-1400 { animation-delay: 1.4s; }
+
+/* ══════════════════════════════════════════════════════════
+   DEPTH & LAYERING — Tactile Realism
+   ══════════════════════════════════════════════════════════ */
+
+/* Section blocks with subtle depth */
+.section-block {
+  background: var(--paper);
+  position: relative;
+}
+
+.section-block:nth-child(even) {
+  background: var(--paper-aged);
+}
+
+/* Masthead inner shadow for depth */
+.masthead-depth {
+  box-shadow: inset 0 -20px 40px -20px rgba(0, 0, 0, 0.04);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MICRO-INTERACTIONS — Project Cards & Article Blocks
+   ══════════════════════════════════════════════════════════ */
+
+/* Project card hover micro-interactions */
+.project-card {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 60%, var(--paper-aged) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.project-card:hover {
+  border-color: var(--ink);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  background-color: var(--paper-aged);
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.project-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Article cursor for project cards */
+.cursor-article {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23111' stroke-width='1.5'%3E%3Cpath d='M4 19l8-8m0 0l8-8M12 11H4m16 0h-8'/%3E%3C/svg%3E") 12 12, pointer;
+}
+
+/* Floating micro-detail indicators */
+.micro-indicator {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-faded);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.micro-indicator:hover {
+  opacity: 1;
+}
+
+/* Page number corner */
+.page-number {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--ink-faded);
+  letter-spacing: 0.1em;
+}
+
+/* Now Reading indicator */
+.now-reading {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+/* Time-based greeting */
+.editorial-greeting {
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--ink-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ENHANCED CTA / READ MORE STYLES
+   ══════════════════════════════════════════════════════════ */
+
+.read-more-link {
+  font-family: var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--ink);
+  text-decoration: none;
+  transition: letter-spacing 0.25s ease, color 0.2s ease;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.read-more-link:hover {
+  letter-spacing: 0.18em;
+  color: var(--accent-burgundy);
+  border-bottom-color: var(--accent-burgundy);
+}
+
+.read-more-link::after {
+  content: "→";
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.read-more-link:hover::after {
+  transform: translateX(4px);
+}
+
+/* CTA Button variant */
+.cta-button {
+  font-family: var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  display: inline-block;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.cta-button:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Quick facts sidebar box */
+.quick-facts {
+  border: 1px solid var(--rule);
+  padding: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.quick-facts-title {
+  font-family: var(--font-serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.quick-facts-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-bottom: 1px dotted var(--rule-light);
+  font-size: 0.9rem;
+}
+
+.quick-facts-item:last-child {
+  border-bottom: none;
+}
+
+.quick-facts-item strong {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--ink);
+}
 
 /* ══════════════════════════════════════════════════════════
    PRINT STYLES

@@ -48,11 +48,11 @@ export default function AboutSection() {
         className="text-center mb-10"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <span className="section-label">Editorial</span>
         <h2 className="headline-2 mt-4">About the Author</h2>
-        <hr className="divider-single mt-4 max-w-xs mx-auto" />
+        <hr className="divider-single mt-4 max-w-xs mx-auto animate-divider-expand" />
       </motion.div>
 
       {/* Two-column layout */}
@@ -60,29 +60,34 @@ export default function AboutSection() {
         {/* Left: Portrait + Bio */}
         <motion.div
           className="lg:col-span-7"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
           <article className="article-block">
             <div className="flex flex-col sm:flex-row gap-6 mb-6">
               {/* Portrait */}
-              <div className="flex-shrink-0">
-                <div className="w-36 h-44 relative border border-[var(--rule)] overflow-hidden">
+              <motion.div
+                className="flex-shrink-0"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="w-36 h-44 relative border border-[var(--rule)] overflow-hidden group">
                   <Image
                     src="/profile.png"
                     alt="Sarweshwar — Full Stack Developer & AI/ML Engineer"
                     fill
-                    className="object-cover object-top grayscale hover:grayscale-0 transition-all duration-500"
+                    className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
                     priority
                   />
                 </div>
                 <p className="meta-text mt-2 text-center">Sarweshwar</p>
-              </div>
+              </motion.div>
 
               <div>
                 <h3 className="headline-3 mb-2">Profile</h3>
-                <p className="body-text drop-cap">
+                <p className="body-text drop-cap animate-drop-cap">
                   I&apos;m Sarweshwar, a motivated Computer Science undergraduate
                   with strong hands-on experience in backend development, computer
                   vision, and full-stack web technologies. Currently pursuing my
@@ -92,7 +97,12 @@ export default function AboutSection() {
               </div>
             </div>
 
-            <div className="space-y-4 body-text">
+            <motion.div
+              className="space-y-4 body-text"
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
               <p>
                 I have led impactful projects including developing the complete
                 backend for a college-funded Alumni Portal, building an AI-based
@@ -107,16 +117,16 @@ export default function AboutSection() {
                 Xyndrix — a software solutions company delivering full-stack web
                 applications and AI-driven systems.
               </p>
-            </div>
+            </motion.div>
           </article>
         </motion.div>
 
         {/* Right: Skills Sidebar */}
         <motion.aside
           className="lg:col-span-5"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="article-block">
             <h3 className="headline-4 mb-4">Technical Proficiencies</h3>
@@ -129,7 +139,7 @@ export default function AboutSection() {
                     {categorySkills.map((skill) => (
                       <span
                         key={skill}
-                        className="px-2 py-0.5 text-xs border border-[var(--rule)] text-[var(--ink-light)] hover:bg-[var(--ink)] hover:text-[var(--paper)] transition-colors duration-200 cursor-default"
+                        className="px-2 py-0.5 text-xs border border-[var(--rule)] text-[var(--ink-light)] hover:bg-[var(--ink)] hover:text-[var(--paper)] hover:border-[var(--ink)] transition-all duration-300 cursor-default"
                         style={{ fontFamily: "var(--font-mono)" }}
                       >
                         {skill}

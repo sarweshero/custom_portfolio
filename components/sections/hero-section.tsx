@@ -2,7 +2,7 @@
 
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { Download, Github, Linkedin, Mail } from "lucide-react"
+import { Github, Linkedin, Mail } from "lucide-react"
 
 export default function HeroSection() {
   const ref = useRef<HTMLElement>(null)
@@ -14,13 +14,6 @@ export default function HeroSection() {
     { icon: Mail, href: "mailto:sarweshero@gmail.com", label: "Email" },
   ]
 
-  const handleDownload = () => {
-    const link = document.createElement("a")
-    link.href = "/sarwesh_resume1.pdf"
-    link.download = "sarwesh_resume.pdf"
-    link.click()
-  }
-
   return (
     <section ref={ref} className="newspaper-container py-12">
       {/* Featured headline layout */}
@@ -28,27 +21,51 @@ export default function HeroSection() {
         {/* Main Feature — Left Column */}
         <motion.article
           className="lg:col-span-8"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="article-block-featured">
-            <span className="section-label mb-4">Feature Story</span>
+            <motion.span
+              className="section-label mb-4"
+              initial={{ opacity: 0, x: -10 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Feature Story
+            </motion.span>
 
-            <h2 className="headline-1 mt-4 mb-4">
+            <motion.h2
+              className="headline-1 mt-4 mb-4"
+              initial={{ opacity: 0, letterSpacing: "0.04em", scale: 0.97 }}
+              animate={
+                isInView
+                  ? { opacity: 1, letterSpacing: "-0.02em", scale: 1 }
+                  : {}
+              }
+              transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            >
               A Developer Building the Future with Code & Intelligence
-            </h2>
+            </motion.h2>
 
-            <p
+            <motion.p
               className="text-lg md:text-xl text-[var(--ink-muted)] mb-6 leading-relaxed"
               style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.5 }}
             >
               From full-stack web platforms to AI-powered diagnostic systems — 
               Sarweshwar combines engineering rigor with creative ambition to craft 
               impactful digital solutions.
-            </p>
+            </motion.p>
 
-            <div className="body-text drop-cap mb-8">
+            <motion.div
+              className="body-text drop-cap animate-drop-cap mb-8"
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.7 }}
+            >
               <p>
                 Sarweshwar is a Computer Science undergraduate at Karpagam Academy
                 of Higher Education with a proven track record in backend development,
@@ -58,38 +75,41 @@ export default function HeroSection() {
                 reaching finals in 2, and winning selection in 1 with ₹15 lakh
                 funding for a YOLO-based pest detection system.
               </p>
-            </div>
+            </motion.div>
 
             {/* Action Links */}
-            <div className="flex flex-wrap items-center gap-6 mt-6">
-              <button
-                onClick={handleDownload}
-                className="inline-flex items-center gap-2 text-[var(--ink)] border-b-2 border-[var(--ink)] pb-0.5 hover:text-[var(--accent-burgundy)] hover:border-[var(--accent-burgundy)] transition-colors text-sm font-medium"
-                style={{ fontFamily: "var(--font-serif)" }}
+            <motion.div
+              className="flex flex-wrap items-center gap-6 mt-6"
+              initial={{ opacity: 0, y: 10 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.9 }}
+            >
+              <a
+                href="/sarwesh_resume1.pdf"
+                download="sarwesh_resume.pdf"
+                className="read-more-link"
               >
-                <Download size={16} />
                 Download Résumé
-              </button>
+              </a>
 
               <button
                 onClick={() =>
                   document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="inline-flex items-center gap-2 text-[var(--ink-muted)] border-b border-[var(--rule)] pb-0.5 hover:text-[var(--ink)] hover:border-[var(--ink)] transition-colors text-sm"
-                style={{ fontFamily: "var(--font-serif)" }}
+                className="read-more-link"
               >
-                Get In Touch →
+                Get In Touch
               </button>
-            </div>
+            </motion.div>
           </div>
         </motion.article>
 
         {/* Sidebar — Right Column */}
         <motion.aside
           className="lg:col-span-4"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="article-block">
             <span className="section-label mb-4">Quick Reference</span>
@@ -131,7 +151,7 @@ export default function HeroSection() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-[var(--ink-muted)] hover:text-[var(--ink)] border border-[var(--rule)] hover:border-[var(--ink)] transition-all duration-200"
+                  className="p-2 text-[var(--ink-muted)] hover:text-[var(--accent-burgundy)] border border-[var(--rule)] hover:border-[var(--accent-burgundy)] transition-all duration-300 hover:shadow-[0_1px_4px_rgba(0,0,0,0.08)]"
                   aria-label={social.label}
                 >
                   <social.icon size={18} />

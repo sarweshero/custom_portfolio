@@ -108,15 +108,15 @@ export default function ProjectsSection() {
           .map((project, i) => (
             <motion.article
               key={project.name}
-              className="article-block-featured px-0 md:px-6 first:pl-0 last:pr-0 py-4 cursor-pointer group"
+              className="project-card article-block-featured px-0 md:px-6 first:pl-0 last:pr-0 py-4 cursor-article group"
               onClick={() => setSelectedProject(project)}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ duration: 0.6, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="section-label text-[0.6rem] mb-3">{project.category}</span>
 
-              <h3 className="headline-3 mt-3 mb-2 group-hover:text-[var(--accent-burgundy)] transition-colors duration-200">
+              <h3 className="headline-3 mt-3 mb-2 group-hover:text-[var(--accent-burgundy)] transition-colors duration-300">
                 {project.name}
               </h3>
 
@@ -129,7 +129,7 @@ export default function ProjectsSection() {
                 {project.skills.slice(0, 4).map((skill) => (
                   <span
                     key={skill}
-                    className="text-[0.65rem] text-[var(--ink-muted)] border-b border-[var(--rule-light)]"
+                    className="text-[0.65rem] text-[var(--ink-muted)] border-b border-[var(--rule-light)] transition-colors duration-200 group-hover:border-[var(--ink-muted)]"
                     style={{ fontFamily: "var(--font-mono)" }}
                   >
                     {skill}
@@ -142,10 +142,8 @@ export default function ProjectsSection() {
                 )}
               </div>
 
-              <span className="text-xs text-[var(--ink-muted)] underline underline-offset-2 group-hover:text-[var(--ink)] transition-colors"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
-                Read More →
+              <span className="read-more-link">
+                Read More
               </span>
             </motion.article>
           ))}
@@ -160,15 +158,15 @@ export default function ProjectsSection() {
           .map((project, i) => (
             <motion.article
               key={project.name}
-              className="article-block px-0 md:px-4 first:pl-0 last:pr-0 cursor-pointer group"
+              className="project-card article-block px-0 md:px-4 first:pl-0 last:pr-0 cursor-article group"
               onClick={() => setSelectedProject(project)}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+              transition={{ duration: 0.5, delay: 0.4 + i * 0.12 }}
             >
               <span className="meta-text text-[0.6rem] mb-2 block">{project.category} · {project.dateRange}</span>
 
-              <h4 className="headline-4 mb-1.5 group-hover:text-[var(--accent-burgundy)] transition-colors duration-200">
+              <h4 className="headline-4 mb-1.5 group-hover:text-[var(--accent-burgundy)] transition-colors duration-300">
                 {project.name}
               </h4>
 
@@ -176,11 +174,8 @@ export default function ProjectsSection() {
                 {project.description}
               </p>
 
-              <span
-                className="text-xs text-[var(--ink-muted)] underline underline-offset-2 group-hover:text-[var(--ink)] transition-colors"
-                style={{ fontFamily: "var(--font-serif)" }}
-              >
-                Continue Reading →
+              <span className="read-more-link">
+                Continue Reading
               </span>
             </motion.article>
           ))}
@@ -192,20 +187,21 @@ export default function ProjectsSection() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-[100] bg-[var(--ink)]/60"
+              className="fixed inset-0 z-[100] bg-[var(--ink)]/60 backdrop-blur-[2px]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
               onClick={() => setSelectedProject(null)}
             />
 
             {/* Modal */}
             <motion.div
-              className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-[90vw] md:max-w-2xl md:max-h-[85vh] z-[101] bg-[var(--paper)] border-2 border-[var(--ink)] overflow-y-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 20 }}
-              transition={{ duration: 0.3 }}
+              className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-[90vw] md:max-w-2xl md:max-h-[85vh] z-[101] bg-[var(--paper)] border-2 border-[var(--ink)] overflow-y-auto shadow-[0_8px_40px_rgba(0,0,0,0.12)]"
+              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.98 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Modal Header */}
               <div className="flex items-center justify-between p-6 border-b-2 border-[var(--ink)]">

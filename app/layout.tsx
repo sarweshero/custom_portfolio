@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Playfair_Display, Libre_Baskerville, JetBrains_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import { EditorialUXProvider } from "@/components/editorial-ux"
 import "./globals.css"
 
 const playfair = Playfair_Display({
@@ -58,7 +59,9 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${baskerville.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        {children}
+        <EditorialUXProvider>
+          {children}
+        </EditorialUXProvider>
         <Analytics />
       </body>
     </html>

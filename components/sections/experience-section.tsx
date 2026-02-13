@@ -70,11 +70,11 @@ export default function ExperienceSection() {
         className="text-center mb-10"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
         <span className="section-label">Career</span>
         <h2 className="headline-2 mt-4">Professional Experience</h2>
-        <hr className="divider-single mt-4 max-w-xs mx-auto" />
+        <hr className="divider-single mt-4 max-w-xs mx-auto animate-divider-expand" />
       </motion.div>
 
       {/* Experience Timeline — Newspaper Column Layout */}
@@ -83,9 +83,9 @@ export default function ExperienceSection() {
           <motion.article
             key={exp.company}
             className={`${i === 0 ? "article-block-featured" : "article-block"} pb-8 mb-8`}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            transition={{ duration: 0.6, delay: 0.15 + i * 0.12, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* Header Row */}
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
@@ -119,30 +119,58 @@ export default function ExperienceSection() {
         ))}
 
         {/* Entrepreneurship */}
-        <motion.div
-          className="article-block mt-4"
-          initial={{ opacity: 0, y: 20 }}
+        <motion.article
+          className="article-block pb-8 mb-8 mt-4"
+          initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
           <span className="section-label mb-3">Entrepreneurship</span>
-
-          <div className="mt-4 flex items-start gap-4">
-            <div
-              className="w-10 h-10 border border-[var(--rule)] flex items-center justify-center flex-shrink-0 text-lg font-bold"
-              style={{ fontFamily: "var(--font-serif)" }}
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mt-4">
+            <div className="flex items-start gap-4">
+              <img
+            src="/xyndrix.jpg"
+            alt="Xyndrix Logo"
+            className="w-10 h-10 border border-[var(--rule)] object-cover flex-shrink-0 rounded-full"
+            style={{
+              fontFamily: "var(--font-serif)",
+              filter: "grayscale(1) contrast(1.1) brightness(0.95)",
+              background: "var(--surface)",
+              mixBlendMode: "multiply",
+            }}
+              />
+              <div>
+            <h3 className="headline-3">Co-Founder, Xyndrix</h3>
+            <p
+              className="text-sm text-[var(--ink-muted)] mt-0.5"
+              style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
             >
-              X
+              Software Solutions Company
+            </p>
+              </div>
             </div>
-            <div>
-              <h4 className="headline-4">Co-Founder, Xyndrix</h4>
-              <p className="body-text text-sm mt-1">
-                A software solutions company delivering full-stack web applications,
-                AI-driven systems, and custom enterprise tools.
+            <div className="text-right">
+              <span className="meta-text">Founded 2023 – Present</span>
+              <p className="text-xs text-[var(--ink-faded)] mt-0.5" style={{ fontFamily: "var(--font-mono)" }}>
+            Remote
               </p>
             </div>
           </div>
-        </motion.div>
+          <ul className="space-y-2 mt-4">
+            <li className="flex items-start gap-3 text-sm" style={{ fontFamily: "var(--font-body)" }}>
+              <span className="mt-2 w-1 h-1 bg-[var(--ink)] rounded-full flex-shrink-0" />
+              <span className="text-[var(--ink-light)]">
+            Delivering full-stack web applications, AI-driven systems, and custom enterprise tools.
+              </span>
+            </li>
+            <li className="flex items-start gap-3 text-sm" style={{ fontFamily: "var(--font-body)" }}>
+              <span className="mt-2 w-1 h-1 bg-[var(--ink)] rounded-full flex-shrink-0" />
+              <span className="text-[var(--ink-light)]">
+            Focused on scalable architecture, robust security, and seamless user experience.
+              </span>
+            </li>
+          </ul>
+        </motion.article>
       </div>
     </section>
   )
