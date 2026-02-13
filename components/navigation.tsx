@@ -105,27 +105,6 @@ export default function Navigation() {
           })}
         </div>
 
-        {/* Mobile Navigation Header */}
-        <div className="flex md:hidden items-center justify-between py-3 px-4 w-full">
-          <span
-            className="text-sm font-bold tracking-widest uppercase text-[var(--ink)]"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            {isScrolled ? activeSection : "Chronicle"}
-          </span>
-          <button
-            ref={toggleRef}
-            onClick={() => setIsOpen(!isOpen)}
-            onTouchEnd={() => setIsOpen((prev) => !prev)}
-            className="flex items-center justify-center text-[var(--ink)]"
-            style={{ minWidth: "48px", minHeight: "48px" }}
-            aria-label={isOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-          >
-            {isOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
       </div>
 
       {/* Mobile Slide-In Menu with AnimatePresence */}
