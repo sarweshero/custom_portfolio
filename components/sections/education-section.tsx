@@ -61,10 +61,10 @@ export default function EducationSection() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0)
 
   return (
-    <section ref={ref} id="education" className="newspaper-container py-12">
+    <section ref={ref} id="education" className="newspaper-container py-8 md:py-12">
       {/* Section Header */}
       <motion.div
-        className="text-center mb-10"
+        className="text-center mb-8 md:mb-10"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -86,9 +86,11 @@ export default function EducationSection() {
           >
             {/* Header — Always visible */}
             <button
-              className="w-full py-5 flex items-start gap-4 text-left hover:bg-[var(--paper-aged)]/50 transition-all duration-300 px-2 group"
+              className="w-full py-4 md:py-5 flex items-start gap-4 text-left hover:bg-[var(--paper-aged)]/50 transition-all duration-300 px-2 group"
+              style={{ minHeight: "48px" }}
               onClick={() => setExpandedIndex(expandedIndex === i ? null : i)}
               aria-expanded={expandedIndex === i}
+              aria-controls={`edu-content-${i}`}
             >
               <div className="flex-1 min-w-0">
                 <h3 className="headline-4 group-hover:text-[var(--accent-burgundy)] transition-colors duration-300">{edu.school}</h3>
@@ -103,11 +105,12 @@ export default function EducationSection() {
                 </p>
               </div>
               <span
-                className={`mt-1 text-[var(--ink-muted)] transition-transform duration-200 ${
+                className={`mt-1 text-[var(--ink-muted)] transition-transform duration-200 flex-shrink-0 ${
                   expandedIndex === i ? "rotate-180" : ""
                 }`}
+                aria-hidden="true"
               >
-                <ChevronDown size={18} />
+                <ChevronDown size={20} />
               </span>
             </button>
 
@@ -115,25 +118,28 @@ export default function EducationSection() {
             <AnimatePresence>
               {expandedIndex === i && (
                 <motion.div
+                  id={`edu-content-${i}`}
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   className="overflow-hidden"
+                  role="region"
+                  aria-labelledby={`edu-header-${i}`}
                 >
                   <div className="px-2 pb-6">
                     <hr className="divider-single mb-4" />
 
                     {/* Achievements */}
                     <h4 className="meta-text mb-3">Achievements & Activities</h4>
-                    <ul className="space-y-2 mb-4">
+                    <ul className="space-y-3 mb-4">
                       {edu.achievements.map((item, j) => (
                         <li
                           key={j}
-                          className="flex items-start gap-3 text-sm"
+                          className="flex items-start gap-3 text-sm leading-relaxed"
                           style={{ fontFamily: "var(--font-body)" }}
                         >
-                          <span className="mt-2 w-1 h-1 bg-[var(--ink)] rounded-full flex-shrink-0" />
+                          <span className="mt-2.5 w-1.5 h-1.5 bg-[var(--ink)] rounded-full flex-shrink-0" aria-hidden="true" />
                           <span className="text-[var(--ink-light)]">{item}</span>
                         </li>
                       ))}
@@ -147,7 +153,7 @@ export default function EducationSection() {
                           {edu.leadership.map((role, j) => (
                             <div
                               key={j}
-                              className="flex items-center justify-between py-2 px-3 border border-[var(--rule)]"
+                              className="flex flex-col sm:flex-row sm:items-center justify-between py-3 px-3 border border-[var(--rule)] gap-1"
                             >
                               <span className="text-sm text-[var(--ink)]" style={{ fontFamily: "var(--font-body)" }}>
                                 {role.title}

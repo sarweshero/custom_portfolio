@@ -64,10 +64,10 @@ export default function ExperienceSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section ref={ref} id="experience" className="newspaper-container py-12">
+    <section ref={ref} id="experience" className="newspaper-container py-8 md:py-12">
       {/* Section Header */}
       <motion.div
-        className="text-center mb-10"
+        className="text-center mb-8 md:mb-10"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -107,10 +107,10 @@ export default function ExperienceSection() {
             </div>
 
             {/* Bullets in newspaper column style */}
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {exp.bullets.map((bullet, j) => (
-                <li key={j} className="flex items-start gap-3 text-sm" style={{ fontFamily: "var(--font-body)" }}>
-                  <span className="mt-2 w-1 h-1 bg-[var(--ink)] rounded-full flex-shrink-0" />
+                <li key={j} className="flex items-start gap-3 text-sm leading-relaxed" style={{ fontFamily: "var(--font-body)" }}>
+                  <span className="mt-2.5 w-1.5 h-1.5 bg-[var(--ink)] rounded-full flex-shrink-0" aria-hidden="true" />
                   <span className="text-[var(--ink-light)]">{bullet}</span>
                 </li>
               ))}
@@ -131,6 +131,7 @@ export default function ExperienceSection() {
               <img
             src="/xyndrix.jpg"
             alt="Xyndrix Logo"
+            loading="lazy"
             className="w-10 h-10 border border-[var(--rule)] object-cover flex-shrink-0 rounded-full"
             style={{
               fontFamily: "var(--font-serif)",

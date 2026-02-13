@@ -42,10 +42,10 @@ export default function AboutSection() {
   const isInView = useInView(ref, { once: true, margin: "-100px" })
 
   return (
-    <section ref={ref} id="about" className="newspaper-container py-12">
+    <section ref={ref} id="about" className="newspaper-container py-8 md:py-12">
       {/* Section Header */}
       <motion.div
-        className="text-center mb-10"
+        className="text-center mb-8 md:mb-10"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -56,7 +56,7 @@ export default function AboutSection() {
       </motion.div>
 
       {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 column-rule">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 column-rule">
         {/* Left: Portrait + Bio */}
         <motion.div
           className="lg:col-span-7"
@@ -65,7 +65,7 @@ export default function AboutSection() {
           transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
         >
           <article className="article-block">
-            <div className="flex flex-col sm:flex-row gap-6 mb-6">
+            <div className="flex flex-col items-center sm:items-start sm:flex-row gap-6 mb-6">
               {/* Portrait */}
               <motion.div
                 className="flex-shrink-0"
@@ -73,12 +73,13 @@ export default function AboutSection() {
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                <div className="w-36 h-44 relative border border-[var(--rule)] overflow-hidden group">
+                <div className="w-32 h-40 sm:w-36 sm:h-44 relative border border-[var(--rule)] overflow-hidden">
                   <Image
                     src="/profile.png"
                     alt="Sarweshwar — Full Stack Developer & AI/ML Engineer"
                     fill
-                    className="object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700"
+                    className="object-cover object-top"
+                    sizes="(max-width: 640px) 128px, 144px"
                     priority
                   />
                 </div>
@@ -135,11 +136,11 @@ export default function AboutSection() {
               {Object.entries(skillsByCategory).map(([category, categorySkills]) => (
                 <div key={category}>
                   <h4 className="meta-text mb-2">{category}</h4>
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-2">
                     {categorySkills.map((skill) => (
                       <span
                         key={skill}
-                        className="px-2 py-0.5 text-xs border border-[var(--rule)] text-[var(--ink-light)] hover:bg-[var(--ink)] hover:text-[var(--paper)] hover:border-[var(--ink)] transition-all duration-300 cursor-default"
+                        className="px-2.5 py-1 text-xs border border-[var(--rule)] text-[var(--ink-light)] transition-colors duration-300 cursor-default"
                         style={{ fontFamily: "var(--font-mono)" }}
                       >
                         {skill}

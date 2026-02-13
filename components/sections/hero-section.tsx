@@ -15,9 +15,9 @@ export default function HeroSection() {
   ]
 
   return (
-    <section ref={ref} className="newspaper-container py-12">
+    <section ref={ref} className="newspaper-container py-8 md:py-12">
       {/* Featured headline layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 column-rule">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 column-rule">
         {/* Main Feature — Left Column */}
         <motion.article
           className="lg:col-span-8"
@@ -49,7 +49,7 @@ export default function HeroSection() {
             </motion.h2>
 
             <motion.p
-              className="text-lg md:text-xl text-[var(--ink-muted)] mb-6 leading-relaxed"
+              className="text-base md:text-xl text-[var(--ink-muted)] mb-6 leading-relaxed"
               style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
               initial={{ opacity: 0, y: 12 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -77,9 +77,9 @@ export default function HeroSection() {
               </p>
             </motion.div>
 
-            {/* Action Links */}
+            {/* Action Links — upgraded to cta-button with touch targets */}
             <motion.div
-              className="flex flex-wrap items-center gap-6 mt-6"
+              className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 mt-6"
               initial={{ opacity: 0, y: 10 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.9 }}
@@ -87,7 +87,7 @@ export default function HeroSection() {
               <a
                 href="/sarwesh_resume1.pdf"
                 download="sarwesh_resume.pdf"
-                className="read-more-link"
+                className="cta-button cta-button-primary"
               >
                 Download Résumé
               </a>
@@ -96,7 +96,7 @@ export default function HeroSection() {
                 onClick={() =>
                   document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="read-more-link"
+                className="cta-button"
               >
                 Get In Touch
               </button>
@@ -143,18 +143,19 @@ export default function HeroSection() {
 
             <hr className="divider-single my-4" />
 
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
+            {/* Social Links — 48px touch targets */}
+            <div className="flex items-center gap-3">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 text-[var(--ink-muted)] hover:text-[var(--accent-burgundy)] border border-[var(--rule)] hover:border-[var(--accent-burgundy)] transition-all duration-300 hover:shadow-[0_1px_4px_rgba(0,0,0,0.08)]"
+                  className="flex items-center justify-center text-[var(--ink-muted)] hover:text-[var(--accent-burgundy)] border border-[var(--rule)] hover:border-[var(--accent-burgundy)] transition-all duration-300 hover:shadow-[0_1px_4px_rgba(0,0,0,0.08)] active:scale-95"
+                  style={{ width: "48px", height: "48px" }}
                   aria-label={social.label}
                 >
-                  <social.icon size={18} />
+                  <social.icon size={20} />
                 </a>
               ))}
             </div>

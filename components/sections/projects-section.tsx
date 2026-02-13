@@ -85,10 +85,10 @@ export default function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<(typeof projects)[0] | null>(null)
 
   return (
-    <section ref={ref} id="projects" className="newspaper-container py-12">
+    <section ref={ref} id="projects" className="newspaper-container py-8 md:py-12">
       {/* Section Header */}
       <motion.div
-        className="text-center mb-10"
+        className="text-center mb-8 md:mb-10"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5 }}
@@ -102,14 +102,18 @@ export default function ProjectsSection() {
       </motion.div>
 
       {/* Featured Projects — Large format */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 column-rule mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-0 column-rule mb-8">
         {projects
           .filter((p) => p.featured)
           .map((project, i) => (
             <motion.article
               key={project.name}
-              className="project-card article-block-featured px-0 md:px-6 first:pl-0 last:pr-0 py-4 cursor-article group"
+              className="project-card article-block-featured px-0 md:px-6 first:pl-0 last:pr-0 py-4 cursor-pointer group"
               onClick={() => setSelectedProject(project)}
+              onKeyDown={(e) => e.key === "Enter" && setSelectedProject(project)}
+              tabIndex={0}
+              role="button"
+              aria-label={`View details: ${project.name}`}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
@@ -158,8 +162,12 @@ export default function ProjectsSection() {
           .map((project, i) => (
             <motion.article
               key={project.name}
-              className="project-card article-block px-0 md:px-4 first:pl-0 last:pr-0 cursor-article group"
+              className="project-card article-block px-0 md:px-4 first:pl-0 last:pr-0 cursor-pointer group"
               onClick={() => setSelectedProject(project)}
+              onKeyDown={(e) => e.key === "Enter" && setSelectedProject(project)}
+              tabIndex={0}
+              role="button"
+              aria-label={`View details: ${project.name}`}
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.4 + i * 0.12 }}
@@ -197,25 +205,31 @@ export default function ProjectsSection() {
 
             {/* Modal */}
             <motion.div
-              className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-[90vw] md:max-w-2xl md:max-h-[85vh] z-[101] bg-[var(--paper)] border-2 border-[var(--ink)] overflow-y-auto shadow-[0_8px_40px_rgba(0,0,0,0.12)]"
+              className="fixed inset-0 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-[90vw] md:max-w-2xl md:max-h-[85vh] z-[101] bg-[var(--paper)] border-0 md:border-2 md:border-[var(--ink)] overflow-y-auto shadow-[0_8px_40px_rgba(0,0,0,0.12)]"
               initial={{ opacity: 0, y: 30, scale: 0.98 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.98 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              role="dialog"
+              aria-modal="true"
+              aria-label={selectedProject.name}
+              onKeyDown={(e) => e.key === "Escape" && setSelectedProject(null)}
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between p-6 border-b-2 border-[var(--ink)]">
+              <div className="flex items-center justify-between p-4 md:p-6 border-b-2 border-[var(--ink)] sticky top-0 bg-[var(--paper)] z-10">
                 <span className="section-label">{selectedProject.category}</span>
                 <button
                   onClick={() => setSelectedProject(null)}
-                  className="p-1 text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors"
-                  aria-label="Close"
+                  className="flex items-center justify-center text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors"
+                  style={{ width: "48px", height: "48px" }}
+                  aria-label="Close project details"
+                  autoFocus
                 >
-                  <X size={20} />
+                  <X size={22} />
                 </button>
               </div>
 
-              <div className="p-6">
+              <div className="p-4 md:p-6">
                 <h3 className="headline-2 mb-2">{selectedProject.name}</h3>
                 <p className="meta-text mb-6">{selectedProject.subtitle} · {selectedProject.dateRange}</p>
 
@@ -240,14 +254,13 @@ export default function ProjectsSection() {
                 <hr className="divider-single mb-6" />
 
                 {/* Action Links */}
-                <div className="flex gap-4">
+                <div className="flex flex-col sm:flex-row gap-3">
                   {selectedProject.link !== "#" && (
                     <a
                       href={selectedProject.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm text-[var(--ink)] border-b border-[var(--ink)] pb-0.5 hover:text-[var(--accent-burgundy)] hover:border-[var(--accent-burgundy)] transition-colors"
-                      style={{ fontFamily: "var(--font-serif)" }}
+                      className="cta-button cta-button-primary"
                     >
                       <ExternalLink size={14} />
                       View Live
@@ -257,8 +270,7 @@ export default function ProjectsSection() {
                     href={selectedProject.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm text-[var(--ink-muted)] border-b border-[var(--rule)] pb-0.5 hover:text-[var(--ink)] hover:border-[var(--ink)] transition-colors"
-                    style={{ fontFamily: "var(--font-serif)" }}
+                    className="cta-button"
                   >
                     <Github size={14} />
                     Source Code

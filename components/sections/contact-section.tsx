@@ -56,10 +56,10 @@ export default function ContactSection() {
   }
 
   return (
-    <section ref={ref} id="contact" className="newspaper-container py-12">
+    <section ref={ref} id="contact" className="newspaper-container py-8 md:py-12">
       {/* Section Header */}
       <motion.div
-        className="text-center mb-10"
+        className="text-center mb-8 md:mb-10"
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5 }}
@@ -75,7 +75,7 @@ export default function ContactSection() {
         <hr className="divider-single mt-4 max-w-xs mx-auto" />
       </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-5xl mx-auto column-rule">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10 max-w-5xl mx-auto column-rule">
         {/* Contact Form — Left Column */}
         <motion.div
           className="lg:col-span-7"
@@ -86,10 +86,10 @@ export default function ContactSection() {
           <div className="article-block">
             <h3 className="headline-4 mb-6">Send a Letter</h3>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name */}
               <div>
-                <label className="meta-text block mb-1.5" htmlFor="contact-name">
+                <label className="meta-text block mb-2" htmlFor="contact-name">
                   Name
                 </label>
                 <input
@@ -98,15 +98,16 @@ export default function ContactSection() {
                   name="name"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full border border-[var(--rule)] px-4 py-2.5 text-sm focus:border-[var(--ink)] outline-none transition-colors"
+                  className="w-full border border-[var(--rule)] px-4 py-3 text-base focus:border-[var(--ink)] outline-none transition-colors"
                   placeholder="Your name"
                   required
+                  autoComplete="name"
                 />
               </div>
 
               {/* Email */}
               <div>
-                <label className="meta-text block mb-1.5" htmlFor="contact-email">
+                <label className="meta-text block mb-2" htmlFor="contact-email">
                   Email Address
                 </label>
                 <input
@@ -115,15 +116,16 @@ export default function ContactSection() {
                   name="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full border border-[var(--rule)] px-4 py-2.5 text-sm focus:border-[var(--ink)] outline-none transition-colors"
+                  className="w-full border border-[var(--rule)] px-4 py-3 text-base focus:border-[var(--ink)] outline-none transition-colors"
                   placeholder="your@email.com"
                   required
+                  autoComplete="email"
                 />
               </div>
 
               {/* Subject */}
               <div>
-                <label className="meta-text block mb-1.5" htmlFor="contact-subject">
+                <label className="meta-text block mb-2" htmlFor="contact-subject">
                   Subject
                 </label>
                 <input
@@ -132,7 +134,7 @@ export default function ContactSection() {
                   name="subject"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full border border-[var(--rule)] px-4 py-2.5 text-sm focus:border-[var(--ink)] outline-none transition-colors"
+                  className="w-full border border-[var(--rule)] px-4 py-3 text-base focus:border-[var(--ink)] outline-none transition-colors"
                   placeholder="Subject of inquiry"
                   required
                 />
@@ -140,7 +142,7 @@ export default function ContactSection() {
 
               {/* Message */}
               <div>
-                <label className="meta-text block mb-1.5" htmlFor="contact-message">
+                <label className="meta-text block mb-2" htmlFor="contact-message">
                   Message
                 </label>
                 <textarea
@@ -149,7 +151,7 @@ export default function ContactSection() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={5}
-                  className="w-full border border-[var(--rule)] px-4 py-2.5 text-sm focus:border-[var(--ink)] outline-none transition-colors resize-none"
+                  className="w-full border border-[var(--rule)] px-4 py-3 text-base focus:border-[var(--ink)] outline-none transition-colors resize-none"
                   placeholder="Your message..."
                   required
                 />
@@ -159,7 +161,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="cta-button flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="cta-button cta-button-primary w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status === "idle" && "Send Message"}
                 {status === "sending" && "Sending..."}
@@ -192,9 +194,10 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between py-3 border-b border-[var(--rule)] group"
+                  style={{ minHeight: "48px" }}
                 >
                   <div className="flex items-center gap-3">
-                    <link.icon size={16} className="text-[var(--ink-muted)] group-hover:text-[var(--ink)] transition-colors" />
+                    <link.icon size={18} className="text-[var(--ink-muted)] group-hover:text-[var(--ink)] transition-colors" />
                     <span
                       className="text-sm text-[var(--ink)] group-hover:text-[var(--accent-burgundy)] transition-colors"
                       style={{ fontFamily: "var(--font-body)" }}
