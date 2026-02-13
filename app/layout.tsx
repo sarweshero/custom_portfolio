@@ -56,13 +56,37 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-    <head>
-      <link
-        rel="icon"
-        href="/me.png"
-        type="image/png"
-      />
-    </head>
+      <head>
+        <link rel="icon" href="/me.png" type="image/png" />
+        <title>Sarweshwar Deivasihamani | Full Stack Developer | AI & ML | Karpagam Academy</title>
+        <meta name="description" content="Portfolio of Sarweshwar Deivasihamani, Full Stack Developer, AI/ML enthusiast, student at Karpagam Academy, Erode. Also known as Sarwesh, Sarweshwar D, Sarweshwar Karpagam, Sarweshwar student at Karpagam, Sarweshwar Erode." />
+        <meta name="keywords" content="Sarwesh, Sarweshwar, Sarweshwar Deivasihamani, Deivasihamani, Sarweshwar D, Sarweshwar Karpagam, Sarweshwar student at Karpagam, Sarweshwar Erode, Full Stack Developer, AI, ML, Karpagam Academy, Erode, Student Portfolio" />
+        <meta name="author" content="Sarweshwar Deivasihamani" />
+        <meta property="og:title" content="Sarweshwar Deivasihamani | Full Stack Developer | AI & ML" />
+        <meta property="og:description" content="Portfolio of Sarweshwar Deivasihamani, Full Stack Developer, AI/ML enthusiast, student at Karpagam Academy, Erode." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://sarweshero.me" />
+        <meta property="og:image" content="https://www.sarweshero.me/profile.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Sarweshwar Deivasihamani | Full Stack Developer | AI & ML" />
+        <meta name="twitter:description" content="Portfolio of Sarweshwar Deivasihamani, Full Stack Developer, AI/ML enthusiast, student at Karpagam Academy, Erode." />
+        <meta name="twitter:image" content="https://www.sarweshero.me/profile.png" />
+        <link rel="canonical" href="https://your-portfolio-url.com" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          name: 'Sarweshwar Deivasihamani',
+          alternateName: ['Sarweshero', 'sarweshero', 'Sarwesh', 'Sarweshwar D', 'Sarweshwar Karpagam', 'Sarweshwar student at Karpagam', 'Sarweshwar Erode'],
+          jobTitle: 'Full Stack Developer',
+          alumniOf: 'Karpagam Academy of Higher Education',
+          address: {
+            addressLocality: 'Erode',
+            addressRegion: 'Tamil Nadu',
+            addressCountry: 'India',
+          },
+          url: 'https://your-portfolio-url.com',
+        }) }} />
+      </head>
       <body
         className={`${playfair.variable} ${baskerville.variable} ${jetbrainsMono.variable} antialiased`}
       >
